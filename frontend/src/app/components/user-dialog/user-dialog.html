@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Usuario' : 'Crear Usuario' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 15px;">
+      <mat-label>ID de Usuario</mat-label>
+      <input matInput formControlName="userId" placeholder="Ej: user123">
+      <mat-error *ngIf="userForm.get('userId')?.hasError('required')">
+        El ID es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Ej: Juan Pérez">
+      <mat-error *ngIf="userForm.get('name')?.hasError('required')">
+        El nombre es requerido
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary"
+          (click)="onSave()"
+          [disabled]="!userForm.valid">
+    {{ isEditMode ? 'Actualizar' : 'Crear' }}
+  </button>
+</mat-dialog-actions>

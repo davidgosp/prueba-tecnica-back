@@ -1,0 +1,36 @@
+.users-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.actions-bar {
+  margin-bottom: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.no-data {
+  td {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+  }
+}
+
+// Hacer que los iconos y el texto del botón estén alineados
+button mat-icon {
+  margin-right: 5px;
+}

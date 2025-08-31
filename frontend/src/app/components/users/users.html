@@ -1,0 +1,80 @@
+<div class="users-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Gestión de Usuarios</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Botón para crear nuevo usuario -->
+      <div class="actions-bar">
+        <button mat-raised-button color="primary" (click)="openCreateDialog()">
+          <mat-icon>add</mat-icon>
+          Crear Usuario
+        </button>
+      </div>
+
+      <!-- Mensaje de carga -->
+      <div *ngIf="isLoading" class="loading">
+        Cargando usuarios...
+      </div>
+
+      <!-- Tabla de usuarios -->
+      <div class="table-container" *ngIf="!isLoading">
+        <table mat-table [dataSource]="users" class="mat-elevation-z8">
+
+          <!-- Columna ID -->
+          <ng-container matColumnDef="userId">
+            <th mat-header-cell *matHeaderCellDef> ID Usuario </th>
+            <td mat-cell *matCellDef="let user"> {{user.userId}} </td>
+          </ng-container>
+
+          <!-- Columna Nombre -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+          </ng-container>
+
+          <!-- Columna Fecha Creación -->
+          <ng-container matColumnDef="createDate">
+            <th mat-header-cell *matHeaderCellDef> Fecha Creación </th>
+            <td mat-cell *matCellDef="let user"> {{formatDate(user.createDate)}} </td>
+          </ng-container>
+
+          <!-- Columna Fecha Actualización -->
+          <ng-container matColumnDef="updateDate">
+            <th mat-header-cell *matHeaderCellDef> Última Actualización </th>
+            <td mat-cell *matCellDef="let user"> {{formatDate(user.updateDate)}} </td>
+          </ng-container>
+
+          <!-- Columna Acciones -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let user">
+              <button mat-icon-button color="primary"
+                      (click)="openEditDialog(user)"
+                      matTooltip="Editar usuario">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn"
+                      (click)="deleteUser(user)"
+                      matTooltip="Eliminar usuario">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Filas de la tabla -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Mensaje cuando no hay datos -->
+          <tr class="mat-row no-data" *ngIf="users.length === 0">
+            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+              No hay usuarios registrados. ¡Crea el primero!
+            </td>
+          </tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
